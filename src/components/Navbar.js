@@ -7,6 +7,7 @@ import {
   FaBook,
   FaBookMedical,
   FaChartPie,
+  FaUniversity,
 } from 'react-icons/fa';
 import { MdAddchart } from 'react-icons/md';
 
@@ -51,9 +52,9 @@ const Navbar = () => {
   return (
     <div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 h-[100vh] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5'>
       <div className='flex items-center mb-2 p-4 gap-2'>
-        <img className='h-6' src={logo} alt='Speer Logo' />
+        <FaUniversity size={32} />
         <h5 className='block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-gray-900'>
-          Speer
+          ShyftLabs
         </h5>
       </div>
       <nav className='flex flex-col gap-1 min-w-[240px] p-2 font-sans text-base font-normal text-gray-700'>
