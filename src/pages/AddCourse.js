@@ -45,7 +45,7 @@ const AddCourse = () => {
           <Form>
             <div className='flex flex-col gap-8'>
               <h4 class='block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased'>
-                Add New Student
+                Add New Course
               </h4>
               <Field
                 className='w-[500px] h-10 bg-none rounded-md outline-slate-50 border-slate-500 border-2 p-2'

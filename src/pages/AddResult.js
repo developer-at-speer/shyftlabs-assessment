@@ -54,7 +54,7 @@ const AddResult = ({ getStudents, getCourses, studentList, courseList }) => {
       >
         <Form className='flex flex-col items-center p-4'>
           <div className='flex flex-col gap-8'>
-            <h1 className='text-2xl font-bold'>Add New Student</h1>
+            <h1 className='text-2xl font-bold'>Add New Result</h1>
             <div className='flex flex-col'>
               <label htmlFor='dropdown1' className='mb-2'>
                 Student Name
