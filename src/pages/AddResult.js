@@ -1,32 +1,31 @@
-import React, { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { BASE_URL } from '../utils/constants';
+import Loader from '../components/Loader';
 
 const AddResult = ({ getStudents, getCourses, studentList, courseList }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     getStudents();
     getCourses();
   }, []);
 
-  // Function to handle form submission
-  // Function to handle form submission
   const handleSubmit = (values, { setSubmitting }) => {
-    // Perform validation
+    setIsLoading(true);
     if (!values.dropdown1 || !values.dropdown2 || !values.score) {
-      toast.error('Please select options for all dropdowns.'); // You can use other form validation techniques as well
+      toast.error('Please select options for all dropdowns.');
       setSubmitting(false);
       return;
     }
 
-    // Prepare the data for the POST request
     const data = {
-      username: values.dropdown1, // Use the key instead of value
-      coursename: values.dropdown2, // Use the key instead of value
+      username: values.dropdown1,
+      coursename: values.dropdown2,
       score: values.score,
     };
 
-    // Send the POST request
     fetch(`${BASE_URL}/result/`, {
       method: 'POST',
       headers: {
@@ -43,6 +42,7 @@ const AddResult = ({ getStudents, getCourses, studentList, courseList }) => {
       })
       .finally(() => {
         setSubmitting(false);
+        setIsLoading(false);
       });
   };
 
@@ -135,7 +135,7 @@ const AddResult = ({ getStudents, getCourses, studentList, courseList }) => {
               data-ripple-light='true'
               class='mt-6 block w-full select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
             >
-              Add
+              {isLoading ? <Loader /> : 'Add'}
             </button>
           </div>
         </Form>

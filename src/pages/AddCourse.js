@@ -1,10 +1,13 @@
-import React from 'react';
-import { toast } from 'react-toastify';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Formik, Field, Form } from 'formik';
 import { BASE_URL } from '../utils/constants';
+import Loader from '../components/Loader';
 
 const AddCourse = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const addCourseHandler = async (values) => {
+    setIsLoading(true);
     let courseDetails = {
       coursename: values.courseName,
     };
@@ -14,20 +17,19 @@ const AddCourse = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(courseDetails), // Replace with your actual data
+        body: JSON.stringify(courseDetails),
       });
 
       if (response.ok) {
-        // Request was successful
         const data = await response.json();
-        toast.success('Course add successfully');
+        toast.success('Course added successfully');
       } else {
-        // Request failed
         console.error('Error:', response.status);
       }
     } catch (error) {
       console.error('Error:', error);
     }
+    setIsLoading(false);
   };
 
   const validateField = (values) => {
@@ -64,7 +66,7 @@ const AddCourse = () => {
                 data-ripple-light='true'
                 class='mt-6 block w-full select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
               >
-                Add
+                {isLoading ? <Loader /> : 'Add'}
               </button>
             </div>
           </Form>

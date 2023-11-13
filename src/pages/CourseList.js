@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
 import { MdDelete } from 'react-icons/md';
@@ -12,16 +12,14 @@ const CourseList = ({ courseList, getCourses }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ courseid: row.shyft_courseid }), // Replace with your actual data
+        body: JSON.stringify({ courseid: row.shyft_courseid }),
       });
 
       if (response.ok) {
-        // Request was successful
         const data = await response.json();
         toast.success('Record deleted successfully');
         getCourses();
       } else {
-        // Request failed
         console.error('Error:', response.status);
       }
     } catch (error) {

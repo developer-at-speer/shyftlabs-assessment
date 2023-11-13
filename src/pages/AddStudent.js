@@ -1,11 +1,13 @@
-import React from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Formik, Field, Form } from 'formik';
 import { BASE_URL } from '../utils/constants';
+import Loader from '../components/Loader';
 
 const AddStudent = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
   const addStudentHandler = async (values) => {
+    setIsLoading(true);
     let studentDetails = {
       name: values.firstName,
       familyname: values.familyName,
@@ -18,20 +20,19 @@ const AddStudent = (e) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(studentDetails), // Replace with your actual data
+        body: JSON.stringify(studentDetails),
       });
 
       if (response.ok) {
-        // Request was successful
         const data = await response.json();
         toast.success('Student added successfully');
       } else {
-        // Request failed
         console.error('Error:', response.status);
       }
     } catch (error) {
       console.error('Error:', error);
     }
+    setIsLoading(false);
   };
 
   const validateField = (values) => {
@@ -74,7 +75,7 @@ const AddStudent = (e) => {
         initialValues={{ firstName: '', familyName: '', dob: '', email: '' }}
         onSubmit={addStudentHandler}
       >
-        {({ errors, touched, isValidating }) => (
+        {({ errors, touched }) => (
           <Form>
             <div className='flex flex-col gap-8'>
               <h4 class='block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased'>
@@ -136,7 +137,7 @@ const AddStudent = (e) => {
                 data-ripple-light='true'
                 class='mt-6 block w-full select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
               >
-                Add
+                {isLoading ? <Loader /> : 'Add'}
               </button>
             </div>
           </Form>
