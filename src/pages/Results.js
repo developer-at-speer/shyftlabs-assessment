@@ -28,7 +28,7 @@ const Results = ({ getStudents, getCourses, studentList, courseList }) => {
   return (
     <>
       <div className='flex flex-col w-[1000px] justify-center items-center'>
-        <h1 className='text-2xl font-bold mb-10'>Student List</h1>
+        <h1 className='text-2xl font-bold mb-10'>Results</h1>
         {resultList.length > 0 ? (
           <div className='flex flex-row justify center items center'>
             <table

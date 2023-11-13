@@ -19,14 +19,12 @@ function App() {
 
   const getStudents = () => {
     axios.get(`${BASE_URL}/alluser/`).then((res) => {
-      console.log(res.data);
       setStudentList(res.data);
     });
   };
 
   const getCourses = () => {
     axios.get(`${BASE_URL}/allcourse/`).then((res) => {
-      console.log(res.data);
       setCourseList(res.data);
     });
   };

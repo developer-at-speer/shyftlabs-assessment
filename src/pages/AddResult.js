@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { BASE_URL } from '../utils/constants';
 
 const AddResult = ({ getStudents, getCourses, studentList, courseList }) => {
   useEffect(() => {
@@ -12,7 +14,7 @@ const AddResult = ({ getStudents, getCourses, studentList, courseList }) => {
   const handleSubmit = (values, { setSubmitting }) => {
     // Perform validation
     if (!values.dropdown1 || !values.dropdown2 || !values.score) {
-      alert('Please select options for all dropdowns.'); // You can use other form validation techniques as well
+      toast.error('Please select options for all dropdowns.'); // You can use other form validation techniques as well
       setSubmitting(false);
       return;
     }
@@ -23,10 +25,9 @@ const AddResult = ({ getStudents, getCourses, studentList, courseList }) => {
       coursename: values.dropdown2, // Use the key instead of value
       score: values.score,
     };
-    console.log(data);
 
     // Send the POST request
-    fetch('http://127.0.0.1:8000/result/', {
+    fetch(`${BASE_URL}/result/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,12 +36,7 @@ const AddResult = ({ getStudents, getCourses, studentList, courseList }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        // Handle the API response
-        console.log(result);
-        alert('Success');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        toast.success('Result added successfully');
       })
       .catch((error) => {
         console.error(error);

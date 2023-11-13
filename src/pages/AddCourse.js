@@ -1,15 +1,15 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import { Formik, Field, Form } from 'formik';
-import axios from 'axios';
+import { BASE_URL } from '../utils/constants';
 
 const AddCourse = () => {
   const addCourseHandler = async (values) => {
     let courseDetails = {
       coursename: values.courseName,
     };
-    console.log(courseDetails);
     try {
-      const response = await fetch('http://127.0.0.1:8000/course/', {
+      const response = await fetch(`${BASE_URL}/course/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -20,11 +20,7 @@ const AddCourse = () => {
       if (response.ok) {
         // Request was successful
         const data = await response.json();
-        console.log(data); // Do something with the response data
-        alert('Success');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        toast.success('Course add successfully');
       } else {
         // Request failed
         console.error('Error:', response.status);
